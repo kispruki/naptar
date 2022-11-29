@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+        td{border: 1px solid ; text-align: center}
+        table{width: 500px;height :500px}
+        body{background-color: #5f5f5f;color:whitesmoke}
+    </style>
+
+    <script>
+
+        time = new Date();
+        current_month = time.getMonth()
+        current_year =time.getYear().toString()
+        current_year = parseInt(current_year)-100;
+        
+        function prev(){current_month--; 
+            if(current_month<0){current_month=11; current_year--; };
+            document.getElementById("table").innerHTML = table_proccess(monthdaycount(current_month))};
+
+        function next(){current_month++; 
+            if(current_month>11){current_month=0; current_year++;};
+            document.getElementById("table").innerHTML = table_proccess(monthdaycount(current_month))};
+
+        function home(){current_month = time.getMonth()
+                        current_year =time.getYear().toString()
+                        current_year = parseInt(current_year)-100;
+                        document.getElementById("table").innerHTML = table_proccess(monthdaycount(current_month))
+                        };
+
+        function getmonthdays(monthc, year){
+                t= new Date(monthc+1+"/01/"+year)
+                /*switch (t.getDay()){
+                    case 0:return 0;break;
+                    case 1:return 1; break;
+                    case 2:return 2; break;
+                    case 3:return 3; break;
+                    case 4:return 4; break;
+                    case 5:return 5; break;
+                    case 6:return 6; break;
+                    default:break;
+
+                }*/
+                return t.getDay();
+            };
+
+        function monthdaycount(cmonth){
+            switch (cmonth){
+                case 0: return 31; break;
+                case 1: return 28; break;
+                case 2: return 31; break;
+                case 3: return 30; break;
+                case 4: return 31; break;
+                case 5: return 30; break;
+                case 6: return 31; break;
+                case 7: return 31; break;
+                case 8: return 30; break;
+                case 9: return 31; break;
+                case 10: return 30; break;
+                case 11: return 31; break;
+                default:break;
+            };
+        };
+
+        function table_proccess(dayc){
+            table = "<table style=\"border: 1px solid whitesmoke\">\n";
+            day = 1;
+            for (x = 1; x<=6; x++)
+            {
+                table += "<tr id="+x+">\n";
+                if (x == 1)
+                {
+                    table += "<td>Sun</td>";
+                    table += "<td>Mon</td>";
+                    table += "<td>Tue</td>";
+                    table += "<td>Wed</td>";
+                    table += "<td>Th</td>";
+                    table += "<td>Fri</td>";
+                    table += "<td>Sat</td>";
+                    continue;
+                };
+            
+                for (y = 1; y<=7; y++){
+                    if(x==2 && y<=getmonthdays(current_month, current_year)){table+="<td></td>"}
+                    else{
+                    xy = x.toString()+y.toString();
+                    if (day == time.getDate() && current_month == time.getMonth() && current_year == parseInt(time.getYear())-100)
+                    {
+                        table += "<td id="+xy+" style=\"background-color: red\"> "+ day+ "</td>\n";
+                    }
+                    else{table += "<td id="+xy+"> "+ day+ "</td>\n";};
+                    if (day == dayc){break};
+                    day++;
+                    }}
+                table += "</tr>\n";
+            }
+            if(day<dayc){
+                table += "<tr>\n"
+            while(day <= dayc){
+                table += "<td id="+xy+"> "+ day+ "</td>\n";
+                day++
+            };};
+            table += "</table>";
+            document.getElementById("year").innerHTML="20"+current_year;
+            return table;};
+
+        function month_proccess(){
+            
+            
+            function getmonthname(monthc){
+
+                switch (monthc){
+                    
+                    case 0: return "Jan"; break;
+                    case 1: return "Feb"; break;
+                    case 2: return "Mar"; break;
+                    case 3: return "Apr"; break;
+                    case 4: return "May"; break;
+                    case 5: return "Jun"; break;
+                    case 6: return "Jul"; break;
+                    case 7: return "Aug"; break;
+                    case 8: return "Sep"; break;
+                    case 9: return "Oct"; break;
+                    case 10: return "Nov"; break;
+                    case 11: return "Dec"; break;
+                    default:break;
+                }};
+            
+            
+            return getmonthname(current_month)
+        };
+        
+    </script>
+</head>
+<body>
+    <div id="monthdiv" style="width:500px;text-align:center; font-weight: bold;">
+        <span onclick="prev();document.getElementById('month').innerHTML = month_proccess();" style="margin-right:50px">Previous</span>         
+        
+        <span id="month" onclick="home();document.getElementById('month').innerHTML = month_proccess()"></span>
+        
+        <span onclick="next();document.getElementById('month').innerHTML = month_proccess();" style="margin-left:50px">Next</span></div>
+        <div id="table"></div>
+        <div id="year" style="width:500px; text-align:center"></div>
+        <div id="watch" style="width:500px; text-align:center"></div>
+    <script>
+    document.getElementById("table").innerHTML =table_proccess(monthdaycount(current_month));
+    document.getElementById("month").innerHTML = month_proccess();
+
+
+    </script>
+</body>
+</html>
