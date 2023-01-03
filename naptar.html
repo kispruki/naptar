@@ -88,7 +88,8 @@
                     if(x==2 && y<=getmonthdays(current_month, current_year)){table+="<td></td>"}
                     else{
                     xy = x.toString()+y.toString();
-                    if (day == time.getDate() && current_month == time.getMonth() && current_year == parseInt(time.getYear())-100)
+                    if (day == time.getDate() && current_month == time.getMonth() &&
+                    current_year == parseInt(time.getYear())-100)
                     {
                         table += "<td id="+xy+" style=\"background-color: red\"> "+ day+ "</td>\n";
                     }
