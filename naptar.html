@@ -17,7 +17,9 @@
         current_month = time.getMonth()
         current_year =time.getYear().toString()
         current_year = parseInt(current_year)-100;
-        
+        eventm = 1;
+        eventd = 5;
+        eventy = 23;
         function prev(){current_month--; 
             if(current_month<0){current_month=11; current_year--; };
             document.getElementById("table").innerHTML = table_proccess(monthdaycount(current_month))};
@@ -93,6 +95,7 @@
                     {
                         table += "<td id="+xy+" style=\"background-color: red\"> "+ day+ "</td>\n";
                     }
+                
                     else{table += "<td id="+xy+"> "+ day+ "</td>\n";};
                     if (day == dayc){break};
                     day++;
