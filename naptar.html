@@ -17,9 +17,9 @@
         current_month = time.getMonth()
         current_year =time.getYear().toString()
         current_year = parseInt(current_year)-100;
-        eventm = 1;
-        eventd = 5;
-        eventy = 23;
+        events = [];
+
+
         function prev(){current_month--; 
             if(current_month<0){current_month=11; current_year--; };
             document.getElementById("table").innerHTML = table_proccess(monthdaycount(current_month))};
@@ -90,13 +90,17 @@
                     if(x==2 && y<=getmonthdays(current_month, current_year)){table+="<td></td>"}
                     else{
                     xy = x.toString()+y.toString();
+                    btn = "onclick=\"events.push([current_month,day,current_year]);document.getElementById('table').innerHTML = table_proccess(monthdaycount(current_month))\"";
                     if (day == time.getDate() && current_month == time.getMonth() &&
                     current_year == parseInt(time.getYear())-100)
                     {
-                        table += "<td id="+xy+" style=\"background-color: red\"> "+ day+ "</td>\n";
+                        table += "<td id="+xy+" style=\"background-color: red\""+btn+" > "+ day+ "</td>\n";
                     }
-                
-                    else{table += "<td id="+xy+"> "+ day+ "</td>\n";};
+                    else if (events.some(date => date[0] === current_month && date[1] === day && date[2] === current_year)){
+                        table += "<td id="+xy+" style=\"background-color: #5600f6\"> "+ day+ "</td>\n";
+                    
+                    }                
+                    else{table += "<td id="+xy+" "+btn+"> "+ day+ "</td>\n";};
                     if (day == dayc){break};
                     day++;
                     }}
@@ -148,13 +152,13 @@
         
         <span onclick="next();document.getElementById('month').innerHTML = month_proccess();" style="margin-left:50px">Next</span></div>
         <div id="table"></div>
-        <div id="year" style="width:500px; text-align:center"></div>
-        <div id="watch" style="width:500px; text-align:center"></div>
+        <div id="year" style="width:500px; text-align:center" onclick="console.log(document.getSelection().innerHTML)"></div>
+        <div id="text" style="width:500px; text-align:center"></div>
     <script>
     document.getElementById("table").innerHTML =table_proccess(monthdaycount(current_month));
     document.getElementById("month").innerHTML = month_proccess();
 
-
+    
     </script>
 </body>
 </html>
